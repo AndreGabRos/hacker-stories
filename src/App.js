@@ -1,7 +1,9 @@
 import * as React from "react"
 import axios from "axios"
+import styled from "styled-components"
 
-import "./App.css"
+import cs from "classnames"
+import styles from "./App.module.css"
 
 // Custom Hooks
 function useSemiPermanentState(key, initialState) {
@@ -15,6 +17,9 @@ function useSemiPermanentState(key, initialState) {
 
   return [value, setValue]
 }
+
+
+const StyledContainer = styled.div
 
 
 
@@ -110,8 +115,8 @@ export default function App() {
 
 
   return (
-    <div className="container">
-      <h1 className="headline-primary">My hacker stories</h1>
+    <div className={styles.container}>
+      <h1 className={styles.headlinePrimary}>My hacker stories</h1>
 
       <SearchForm
         searchTerm={ searchTerm }
@@ -133,7 +138,7 @@ export default function App() {
 
 function SearchForm({ searchTerm, onSearchInput, onSearchSubmit }) {
   return (
-    <form onSubmit={ onSearchSubmit } className="search-form">
+    <form onSubmit={ onSearchSubmit } className={`${styles.searchForm}`}>
       <InputWithLabel
         id="search"
         value={ searchTerm }
@@ -145,7 +150,7 @@ function SearchForm({ searchTerm, onSearchInput, onSearchSubmit }) {
       <button
         type="submit"
         disabled={!searchTerm}
-        className="button button_large"
+        className={`${styles.button} ${styles.buttonLarge}`}
       >Submit</button>
     </form>
   )
@@ -154,8 +159,8 @@ function SearchForm({ searchTerm, onSearchInput, onSearchSubmit }) {
 function InputWithLabel({ id, value, onInputChange, type="text", children }) {
   return (
     <>
-      <label htmlFor={ id } className="label">{ children }</label>
-      <input id={ id } className="input" type={ type } value={ value } onChange={ onInputChange }/>
+      <label htmlFor={ id } className={`${styles.label}`}>{ children }</label>
+      <input id={ id } className={`${styles.input}`} type={ type } value={ value } onChange={ onInputChange }/>
     </>
   )
 }
@@ -174,7 +179,7 @@ function List({ list, onRemoveItem }) {
 
 function Item({ item, onRemoveItem }) {
   return (
-    <li className="item">
+    <li className={styles.item}>
       <span style={{ width: "40%" }}>
         <a href={ item.url }>{ item.title }</a>
       </span>
@@ -182,7 +187,7 @@ function Item({ item, onRemoveItem }) {
         <button 
           type="button"
           onClick={ onRemoveItem.bind(null, item) }
-          className="button button_small"
+          className={cs(styles.button, styles.buttonSmall)}
         >
           Dismiss
         </button>
